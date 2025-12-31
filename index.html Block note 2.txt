@@ -1,0 +1,2237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bechna Wail Coding 5 - Langage de Programmation Algérien</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.6.6/css/flag-icons.min.css">
+    <style>
+        :root {
+            --primary-dark: #0a1a3a;
+            --primary-blue: #1a3a7a;
+            --accent-blue: #2d5bb5;
+            --light-blue: #4a7dff;
+            --white: #ffffff;
+            --black: #000000;
+            --gray-light: #f2f2f2;
+            --gray: #cccccc;
+            --green-algeria: #006233;
+            --red-algeria: #d21034;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --error: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
+            color: var(--white);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header Styles */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .header-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .header-title h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(to right, var(--white), var(--light-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .flag {
+            font-size: 2rem;
+        }
+        
+        .subtitle {
+            color: var(--gray-light);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        /* Main Layout */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        @media (min-width: 992px) {
+            .main-content {
+                flex-direction: row;
+            }
+            
+            .editor-section {
+                flex: 1.2;
+            }
+            
+            .preview-section {
+                flex: 0.8;
+            }
+        }
+        
+        /* Editor Section */
+        .editor-section, .preview-section {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-blue);
+        }
+        
+        .section-title h2 {
+            font-size: 1.8rem;
+        }
+        
+        .section-title i {
+            color: var(--light-blue);
+        }
+        
+        /* Variables Panel */
+        .variables-panel {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .variables-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .variables-header h3 {
+            font-size: 1.4rem;
+        }
+        
+        .btn {
+            background-color: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            background-color: var(--light-blue);
+            transform: translateY(-3px);
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+        }
+        
+        .variables-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+            min-height: 60px;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        
+        .variable-item {
+            background: linear-gradient(135deg, var(--green-algeria), var(--accent-blue));
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .variable-name {
+            color: var(--white);
+        }
+        
+        .variable-value {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 5px;
+        }
+        
+        /* Code Editor */
+        .code-editor {
+            background-color: var(--black);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .editor-header {
+            background-color: #1e1e1e;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .editor-header h4 {
+            color: var(--gray-light);
+        }
+        
+        .editor-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 250px;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            border: none;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.5;
+            resize: vertical;
+        }
+        
+        textarea:focus {
+            outline: none;
+        }
+        
+        /* Preview Section */
+        .preview-container {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 400px;
+            margin-bottom: 25px;
+        }
+        
+        .preview-output {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        /* Created Items */
+        .created-items {
+            margin-top: 25px;
+        }
+        
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .item-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .item-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--light-blue);
+        }
+        
+        .item-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--light-blue);
+        }
+        
+        .item-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .item-type {
+            font-size: 0.9rem;
+            color: var(--gray);
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 3px 8px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        
+        /* Examples Panel */
+        .examples-panel {
+            margin-top: 30px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+        }
+        
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .example-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        .example-card:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: var(--accent-blue);
+            transform: translateY(-5px);
+        }
+        
+        .example-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--light-blue);
+        }
+        
+        .example-desc {
+            color: var(--gray-light);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+        
+        .example-tag {
+            display: inline-block;
+            background-color: var(--green-algeria);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: var(--gray);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header-title h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.5rem;
+            }
+            
+            .editor-section, .preview-section {
+                padding: 15px;
+            }
+            
+            .examples-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-title">
+                <span class="flag fi fi-dz"></span>
+                <h1>Langage de Programmation Algérien</h1>
+                <span class="flag fi fi-dz"></span>
+            </div>
+            <p class="subtitle">Créez des variables et des éléments réutilisables avec une syntaxe inspirée de l'Algérie</p>
+        </header>
+        
+        <main class="main-content">
+            <section class="editor-section">
+                <div class="section-title">
+                    <i class="fas fa-code"></i>
+                    <h2>Éditeur de Code</h2>
+                </div>
+                
+                <div class="variables-panel">
+                    <div class="variables-header">
+                        <h3>Variables Définies</h3>
+                        <button class="btn" id="addVariableBtn">
+                            <i class="fas fa-plus"></i> Ajouter Variable
+                        </button>
+                    </div>
+                    <div class="variables-list" id="variablesList">
+                        <!-- Variables will be added here dynamically -->
+                        <div class="variable-item">
+                            <span class="variable-name">nom</span>
+                            <span class="variable-value">"Bechna Wail"</span>
+                        </div>
+                        <div class="variable-item">
+                            <span class="variable-name">age</span>
+                            <span class="variable-value">22</span>
+                        </div>
+                        <div class="variable-item">
+                            <span class="variable-name">ville</span>
+                            <span class="variable-value">"Alger"</span>
+                        </div>
+                    </div>
+                    
+                    <div class="variable-form" id="variableForm" style="display: none;">
+                        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                            <input type="text" id="varNameInput" placeholder="Nom de variable" style="flex: 1; padding: 10px; border-radius: 5px; border: none;">
+                            <input type="text" id="varValueInput" placeholder="Valeur" style="flex: 1; padding: 10px; border-radius: 5px; border: none;">
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-success" id="saveVariableBtn">
+                                <i class="fas fa-save"></i> Sauvegarder
+                            </button>
+                            <button class="btn" id="cancelVariableBtn" style="background-color: var(--gray);">
+                                <i class="fas fa-times"></i> Annuler
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="code-editor">
+                    <div class="editor-header">
+                        <h4>Votre Code</h4>
+                        <div class="editor-actions">
+                            <button class="btn" id="runCodeBtn">
+                                <i class="fas fa-play"></i> Exécuter
+                            </button>
+                            <button class="btn" id="resetCodeBtn" style="background-color: var(--gray);">
+                                <i class="fas fa-redo"></i> Réinitialiser
+                            </button>
+                        </div>
+                    </div>
+                    <textarea id="codeInput" placeholder="Écrivez votre code ici... Exemple: 
+créer drapeau('Algérie', 'vert', 'blanc', 'rouge')
+créer carte('Alger', 'Capitale de l\'Algérie')
+créer bouton('Cliquez ici', 'success')
+définir couleur_primaire = '#006233'
+définir message = 'Bienvenue en Algérie!'">
+créer drapeau('Algérie', 'vert', 'blanc', 'rouge')
+créer carte('Alger', 'Capitale de l\'Algérie, située sur la côte méditerranéenne.')
+créer bouton('Explorer', 'primary')
+
+définir titre = 'Mon Projet Algérien'
+définir description = 'Ceci est un projet créé avec le langage de programmation algérien.'
+
+afficher titre
+afficher description</textarea>
+                </div>
+                
+                <div class="examples-panel">
+                    <div class="section-title">
+                        <i class="fas fa-lightbulb"></i>
+                        <h2>Exemples Prédéfinis</h2>
+                    </div>
+                    
+                    <div class="examples-grid">
+                        <div class="example-card" data-example="flag">
+                            <div class="example-title">Drapeau Algérien</div>
+                            <div class="example-desc">Créez un drapeau avec les couleurs nationales</div>
+                            <div>
+                                <span class="example-tag">drapeau</span>
+                                <span class="example-tag">couleurs</span>
+                            </div>
+                        </div>
+                        
+                        <div class="example-card" data-example="card">
+                            <div class="example-title">Carte de Présentation</div>
+                            <div class="example-desc">Créez une carte d'information stylisée</div>
+                            <div>
+                                <span class="example-tag">carte</span>
+                                <span class="example-tag">info</span>
+                            </div>
+                        </div>
+                        
+                        <div class="example-card" data-example="button">
+                            <div class="example-title">Boutons Interactifs</div>
+                            <div class="example-desc">Générez différents types de boutons</div>
+                            <div>
+                                <span class="example-tag">bouton</span>
+                                <span class="example-tag">interaction</span>
+                            </div>
+                        </div>
+                        
+                        <div class="example-card" data-example="variables">
+                            <div class="example-title">Gestion des Variables</div>
+                            <div class="example-desc">Définissez et utilisez des variables</div>
+                            <div>
+                                <span class="example-tag">variables</span>
+                                <span class="example-tag">définir</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="preview-section">
+                <div class="section-title">
+                    <i class="fas fa-eye"></i>
+                    <h2>Prévisualisation</h2>
+                </div>
+                
+                <div class="preview-container">
+                    <div class="preview-output" id="previewOutput">
+                        <!-- Generated content will appear here -->
+                        <div style="text-align: center; padding: 40px 20px; color: var(--gray);">
+                            <i class="fas fa-code" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;"></i>
+                            <p>Exécutez votre code pour voir la prévisualisation ici</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="created-items">
+                    <div class="section-title">
+                        <i class="fas fa-th-large"></i>
+                        <h2>Éléments Créés</h2>
+                    </div>
+                    
+                    <div class="items-grid" id="createdItems">
+                        <!-- Created items will appear here -->
+                        <div class="item-card">
+                            <div class="item-icon">
+                                <i class="fas fa-flag"></i>
+                            </div>
+                            <div class="item-name">Drapeau</div>
+                            <div class="item-type">Visualisation</div>
+                        </div>
+                        
+                        <div class="item-card">
+                            <div class="item-icon">
+                                <i class="fas fa-id-card"></i>
+                            </div>
+                            <div class="item-name">Carte</div>
+                            <div class="item-type">Information</div>
+                        </div>
+                        
+                        <div class="item-card">
+                            <div class="item-icon">
+                                <i class="fas fa-mouse-pointer"></i>
+                            </div>
+                            <div class="item-name">Bouton</div>
+                            <div class="item-type">Interaction</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>Langage de Programmation Algérien © 2023 - Projet créé par Bechna Wail</p>
+            <p>Utilisez les commandes spéciales pour créer des éléments réutilisables</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Variables and state management
+        const variables = {
+            "nom": "Bechna Wail",
+            "age": 22,
+            "ville": "Alger",
+            "titre": "Mon Projet Algérien",
+            "description": "Ceci est un projet créé avec le langage de programmation algérien."
+        };
+        
+        const createdItems = [];
+        
+        // DOM Elements
+        const variablesList = document.getElementById('variablesList');
+        const codeInput = document.getElementById('codeInput');
+        const previewOutput = document.getElementById('previewOutput');
+        const createdItemsGrid = document.getElementById('createdItems');
+        const addVariableBtn = document.getElementById('addVariableBtn');
+        const variableForm = document.getElementById('variableForm');
+        const varNameInput = document.getElementById('varNameInput');
+        const varValueInput = document.getElementById('varValueInput');
+        const saveVariableBtn = document.getElementById('saveVariableBtn');
+        const cancelVariableBtn = document.getElementById('cancelVariableBtn');
+        const runCodeBtn = document.getElementById('runCodeBtn');
+        const resetCodeBtn = document.getElementById('resetCodeBtn');
+        
+        // Initialize the variables display
+        function updateVariablesDisplay() {
+            variablesList.innerHTML = '';
+            
+            for (const [name, value] of Object.entries(variables)) {
+                const variableItem = document.createElement('div');
+                variableItem.className = 'variable-item';
+                
+                const nameSpan = document.createElement('span');
+                nameSpan.className = 'variable-name';
+                nameSpan.textContent = name;
+                
+                const valueSpan = document.createElement('span');
+                valueSpan.className = 'variable-value';
+                
+                // Format the value display
+                if (typeof value === 'string' && !value.startsWith('"') && !value.startsWith("'")) {
+                    valueSpan.textContent = `"${value}"`;
+                } else {
+                    valueSpan.textContent = value;
+                }
+                
+                // Add delete button
+                const deleteBtn = document.createElement('button');
+                deleteBtn.innerHTML = '<i class="fas fa-times"></i>';
+                deleteBtn.style.background = 'none';
+                deleteBtn.style.border = 'none';
+                deleteBtn.style.color = 'white';
+                deleteBtn.style.cursor = 'pointer';
+                deleteBtn.style.marginLeft = '5px';
+                
+                deleteBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    delete variables[name];
+                    updateVariablesDisplay();
+                });
+                
+                variableItem.appendChild(nameSpan);
+                variableItem.appendChild(valueSpan);
+                variableItem.appendChild(deleteBtn);
+                variablesList.appendChild(variableItem);
+            }
+        }
+        
+        // Initialize the created items display
+        function updateCreatedItemsDisplay() {
+            // We'll keep the static items for the example
+            // In a full implementation, this would update with actual created items
+        }
+        
+        // Show/hide variable form
+        addVariableBtn.addEventListener('click', function() {
+            variableForm.style.display = 'block';
+            addVariableBtn.style.display = 'none';
+            varNameInput.focus();
+        });
+        
+        cancelVariableBtn.addEventListener('click', function() {
+            variableForm.style.display = 'none';
+            addVariableBtn.style.display = 'inline-flex';
+            varNameInput.value = '';
+            varValueInput.value = '';
+        });
+        
+        // Save new variable
+        saveVariableBtn.addEventListener('click', function() {
+            const name = varNameInput.value.trim();
+            let value = varValueInput.value.trim();
+            
+            if (!name) {
+                alert('Veuillez entrer un nom de variable');
+                return;
+            }
+            
+            // Try to parse numbers
+            if (!isNaN(value) && value !== '') {
+                value = Number(value);
+            }
+            // Check if it's a string (in quotes)
+            else if ((value.startsWith('"') && value.endsWith('"')) || 
+                    (value.startsWith("'") && value.endsWith("'"))) {
+                value = value.slice(1, -1);
+            }
+            
+            variables[name] = value;
+            updateVariablesDisplay();
+            
+            variableForm.style.display = 'none';
+            addVariableBtn.style.display = 'inline-flex';
+            varNameInput.value = '';
+            varValueInput.value = '';
+        });
+        
+        // Run code execution
+        runCodeBtn.addEventListener('click', executeCode);
+        
+        // Reset code
+        resetCodeBtn.addEventListener('click', function() {
+            codeInput.value = '';
+            previewOutput.innerHTML = `
+                <div style="text-align: center; padding: 40px 20px; color: var(--gray);">
+                    <i class="fas fa-code" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;"></i>
+                    <p>Exécutez votre code pour voir la prévisualisation ici</p>
+                </div>
+            `;
+        });
+        
+        // Example cards click handlers
+        document.querySelectorAll('.example-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const exampleType = this.getAttribute('data-example');
+                loadExample(exampleType);
+            });
+        });
+        
+        // Load example code
+        function loadExample(exampleType) {
+            let exampleCode = '';
+            
+            switch(exampleType) {
+                case 'flag':
+                    exampleCode = `créer drapeau('Algérie', 'vert', 'blanc', 'rouge')
+créer drapeau('Maroc', 'rouge', 'vert')
+créer drapeau('Tunisie', 'rouge', 'blanc')`;
+                    break;
+                    
+                case 'card':
+                    exampleCode = `créer carte('Alger', 'Capitale de l\\'Algérie, située sur la côte méditerranéenne.')
+créer carte('Oran', 'Deuxième ville d\\'Algérie, importante métropole économique.')
+créer carte('Constantine', 'Ville historique connue pour ses ponts suspendus.')`;
+                    break;
+                    
+                case 'button':
+                    exampleCode = `créer bouton('Cliquez ici', 'primary')
+créer bouton('Sauvegarder', 'success')
+créer bouton('Annuler', 'warning')
+créer bouton('Supprimer', 'error')`;
+                    break;
+                    
+                case 'variables':
+                    exampleCode = `définir pays = 'Algérie'
+définir population = 44
+définir capitale = 'Alger'
+définir langues = ['Arabe', 'Français', 'Berbère']
+
+afficher 'Pays: ' + pays
+afficher 'Population: ' + population + ' millions'
+afficher 'Capitale: ' + capitale
+afficher 'Langues: ' + langues`;
+                    break;
+            }
+            
+            codeInput.value = exampleCode;
+        }
+        
+        // Main code execution function
+        function executeCode() {
+            const code = codeInput.value;
+            const lines = code.split('\n');
+            
+            // Clear previous output
+            previewOutput.innerHTML = '';
+            
+            // Process each line
+            for (let line of lines) {
+                line = line.trim();
+                if (!line) continue;
+                
+                // Handle variable definition: définir nom = valeur
+                if (line.startsWith('définir ') || line.startsWith('definir ')) {
+                    const varMatch = line.match(/d[eé]finir\s+(\w+)\s*=\s*(.+)/);
+                    if (varMatch) {
+                        const varName = varMatch[1];
+                        let varValue = varMatch[2].trim();
+                        
+                        // Remove quotes if present
+                        if ((varValue.startsWith('"') && varValue.endsWith('"')) || 
+                            (varValue.startsWith("'") && varValue.endsWith("'"))) {
+                            varValue = varValue.slice(1, -1);
+                        }
+                        // Try to parse as number
+                        else if (!isNaN(varValue)) {
+                            varValue = Number(varValue);
+                        }
+                        
+                        variables[varName] = varValue;
+                    }
+                }
+                // Handle display command: afficher valeur
+                else if (line.startsWith('afficher ')) {
+                    const displayMatch = line.match(/afficher\s+(.+)/);
+                    if (displayMatch) {
+                        let displayValue = displayMatch[1].trim();
+                        
+                        // Check if it's a variable
+                        if (variables[displayValue] !== undefined) {
+                            displayValue = variables[displayValue];
+                        }
+                        // Remove quotes if present
+                        else if ((displayValue.startsWith('"') && displayValue.endsWith('"')) || 
+                                (displayValue.startsWith("'") && displayValue.endsWith("'"))) {
+                            displayValue = displayValue.slice(1, -1);
+                        }
+                        
+                        // Create display element
+                        const displayElement = document.createElement('div');
+                        displayElement.style.padding = '10px 15px';
+                        displayElement.style.marginBottom = '10px';
+                        displayElement.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                        displayElement.style.borderRadius = '8px';
+                        displayElement.style.borderLeft = '4px solid var(--accent-blue)';
+                        displayElement.textContent = displayValue;
+                        
+                        previewOutput.appendChild(displayElement);
+                    }
+                }
+                // Handle create flag command: créer drapeau(nom, couleur1, couleur2, ...)
+                else if (line.includes('créer drapeau') || line.includes('creer drapeau')) {
+                    const flagMatch = line.match(/cr[ée]er drapeau\(([^)]+)\)/);
+                    if (flagMatch) {
+                        const args = flagMatch[1].split(',').map(arg => {
+                            let val = arg.trim();
+                            // Remove quotes
+                            if ((val.startsWith('"') && val.endsWith('"')) || 
+                                (val.startsWith("'") && val.endsWith("'"))) {
+                                val = val.slice(1, -1);
+                            }
+                            // Check if it's a variable
+                            if (variables[val] !== undefined) {
+                                return variables[val];
+                            }
+                            return val;
+                        });
+                        
+                        createFlag(args[0], args.slice(1));
+                    }
+                }
+                // Handle create card command: créer carte(titre, description)
+                else if (line.includes('créer carte') || line.includes('creer carte')) {
+                    const cardMatch = line.match(/cr[ée]er carte\(([^)]+)\)/);
+                    if (cardMatch) {
+                        const args = cardMatch[1].split(',').map(arg => {
+                            let val = arg.trim();
+                            // Remove quotes
+                            if ((val.startsWith('"') && val.endsWith('"')) || 
+                                (val.startsWith("'") && val.endsWith("'"))) {
+                                val = val.slice(1, -1);
+                            }
+                            // Check if it's a variable
+                            if (variables[val] !== undefined) {
+                                return variables[val];
+                            }
+                            return val;
+                        });
+                        
+                        createCard(args[0], args[1] || '');
+                    }
+                }
+                // Handle create button command: créer bouton(texte, type)
+                else if (line.includes('créer bouton') || line.includes('creer bouton')) {
+                    const buttonMatch = line.match(/cr[ée]er bouton\(([^)]+)\)/);
+                    if (buttonMatch) {
+                        const args = buttonMatch[1].split(',').map(arg => {
+                            let val = arg.trim();
+                            // Remove quotes
+                            if ((val.startsWith('"') && val.endsWith('"')) || 
+                                (val.startsWith("'") && val.endsWith("'"))) {
+                                val = val.slice(1, -1);
+                            }
+                            // Check if it's a variable
+                            if (variables[val] !== undefined) {
+                                return variables[val];
+                            }
+                            return val;
+                        });
+                        
+                        createButton(args[0], args[1] || 'primary');
+                    }
+                }
+            }
+            
+            // Update variables display after execution
+            updateVariablesDisplay();
+            
+            // If no output was generated, show default message
+            if (previewOutput.children.length === 0) {
+                previewOutput.innerHTML = `
+                    <div style="text-align: center; padding: 40px 20px; color: var(--gray);">
+                        <i class="fas fa-check-circle" style="font-size: 3rem; margin-bottom: 20px; color: var(--success);"></i>
+                        <p>Code exécuté avec succès!</p>
+                        <p style="font-size: 0.9rem; margin-top: 10px;">Utilisez les commandes "afficher", "créer drapeau", "créer carte" ou "créer bouton" pour générer du contenu.</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Function to create a flag visualization
+        function createFlag(name, colors) {
+            const flagContainer = document.createElement('div');
+            flagContainer.style.margin = '15px';
+            flagContainer.style.display = 'inline-block';
+            flagContainer.style.textAlign = 'center';
+            flagContainer.style.maxWidth = '200px';
+            
+            const flagTitle = document.createElement('div');
+            flagTitle.textContent = name;
+            flagTitle.style.fontWeight = 'bold';
+            flagTitle.style.marginBottom = '10px';
+            flagTitle.style.color = 'var(--white)';
+            
+            const flagVisual = document.createElement('div');
+            flagVisual.style.width = '150px';
+            flagVisual.style.height = '100px';
+            flagVisual.style.borderRadius = '8px';
+            flagVisual.style.overflow = 'hidden';
+            flagVisual.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.3)';
+            flagVisual.style.display = 'flex';
+            flagVisual.style.flexDirection = 'column';
+            
+            // Create color stripes
+            colors.forEach(color => {
+                const stripe = document.createElement('div');
+                stripe.style.flex = '1';
+                
+                // Map color names to actual colors
+                let actualColor = color;
+                if (color === 'vert') actualColor = '#006233';
+                else if (color === 'blanc') actualColor = '#FFFFFF';
+                else if (color === 'rouge') actualColor = '#D21034';
+                else if (color === 'bleu') actualColor = '#1a3a7a';
+                else if (color === 'jaune') actualColor = '#FCD116';
+                
+                stripe.style.backgroundColor = actualColor;
+                flagVisual.appendChild(stripe);
+            });
+            
+            flagContainer.appendChild(flagTitle);
+            flagContainer.appendChild(flagVisual);
+            previewOutput.appendChild(flagContainer);
+            
+            // Add to created items
+            createdItems.push({
+                type: 'drapeau',
+                name: name,
+                colors: colors
+            });
+        }
+        
+        // Function to create a card
+        function createCard(title, description) {
+            const card = document.createElement('div');
+            card.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+            card.style.borderRadius = '12px';
+            card.style.padding = '20px';
+            card.style.marginBottom = '15px';
+            card.style.border = '1px solid rgba(255, 255, 255, 0.2)';
+            card.style.maxWidth = '300px';
+            
+            const cardTitle = document.createElement('h3');
+            cardTitle.textContent = title;
+            cardTitle.style.marginBottom = '10px';
+            cardTitle.style.color = 'var(--light-blue)';
+            cardTitle.style.fontSize = '1.3rem';
+            
+            const cardDesc = document.createElement('p');
+            cardDesc.textContent = description;
+            cardDesc.style.color = 'var(--gray-light)';
+            cardDesc.style.lineHeight = '1.5';
+            
+            const cardFooter = document.createElement('div');
+            cardFooter.style.marginTop = '15px';
+            cardFooter.style.display = 'flex';
+            cardFooter.style.justifyContent = 'space-between';
+            cardFooter.style.alignItems = 'center';
+            
+            const cardDate = document.createElement('span');
+            cardDate.textContent = new Date().toLocaleDateString('fr-FR');
+            cardDate.style.fontSize = '0.9rem';
+            cardDate.style.color = 'var(--gray)';
+            
+            const cardIcon = document.createElement('i');
+            cardIcon.className = 'fas fa-info-circle';
+            cardIcon.style.color = 'var(--accent-blue)';
+            
+            cardFooter.appendChild(cardDate);
+            cardFooter.appendChild(cardIcon);
+            
+            card.appendChild(cardTitle);
+            card.appendChild(cardDesc);
+            card.appendChild(cardFooter);
+            
+            previewOutput.appendChild(card);
+            
+            // Add to created items
+            createdItems.push({
+                type: 'carte',
+                title: title,
+                description: description
+            });
+        }
+        
+        // Function to create a button
+        function createButton(text, type) {
+            const button = document.createElement('button');
+            button.textContent = text;
+            button.style.padding = '12px 24px';
+            button.style.borderRadius = '8px';
+            button.style.border = 'none';
+            button.style.fontWeight = 'bold';
+            button.style.cursor = 'pointer';
+            button.style.margin = '10px';
+            button.style.transition = 'all 0.3s ease';
+            
+            // Set color based on type
+            switch(type) {
+                case 'primary':
+                    button.style.backgroundColor = 'var(--accent-blue)';
+                    break;
+                case 'success':
+                    button.style.backgroundColor = 'var(--success)';
+                    break;
+                case 'warning':
+                    button.style.backgroundColor = 'var(--warning)';
+                    break;
+                case 'error':
+                    button.style.backgroundColor = 'var(--error)';
+                    break;
+                default:
+                    button.style.backgroundColor = 'var(--accent-blue)';
+            }
+            
+            button.style.color = 'white';
+            
+            // Hover effect
+            button.addEventListener('mouseover', function() {
+                button.style.transform = 'translateY(-3px)';
+                button.style.boxShadow = '0 6px 12px rgba(0, 0, 0, 0.2)';
+            });
+            
+            button.addEventListener('mouseout', function() {
+                button.style.transform = 'translateY(0)';
+                button.style.boxShadow = 'none';
+            });
+            
+            // Click action
+            button.addEventListener('click', function() {
+                alert(`Bouton "${text}" cliqué!`);
+            });
+            
+            previewOutput.appendChild(button);
+            
+            // Add to created items
+            createdItems.push({
+                type: 'bouton',
+                text: text,
+                buttonType: type
+            });
+        }
+        
+        // Initialize the application
+        updateVariablesDisplay();
+        updateCreatedItemsDisplay();
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bechna Wail Coding 5 - Langage de Programmation Algérien</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.6.6/css/flag-icons.min.css">
+    <style>
+        :root {
+            --primary-dark: #0a1a3a;
+            --primary-blue: #1a3a7a;
+            --accent-blue: #2d5bb5;
+            --light-blue: #4a7dff;
+            --white: #ffffff;
+            --black: #000000;
+            --gray-light: #f2f2f2;
+            --gray-medium: #e0e0e0;
+            --gray-dark: #888888;
+            --success-green: #2ecc71;
+            --warning-yellow: #f39c12;
+            --error-red: #e74c3c;
+            --code-bg: #152347;
+            --arabic-bg: #1a2f5a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
+            padding: 20px;
+            border-bottom: 3px solid var(--accent-blue);
+            text-align: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            font-size: 36px;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--light-blue), #ffcc00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo-subtitle {
+            font-size: 14px;
+            color: var(--gray-medium);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .alg-flag {
+            font-size: 24px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        @media (max-width: 1100px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .section-title {
+            font-size: 24px;
+            color: var(--light-blue);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-blue);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title i {
+            color: #ffcc00;
+        }
+        
+        .card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(74, 125, 255, 0.2);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--light-blue);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .feature {
+            background-color: rgba(45, 91, 181, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .feature i {
+            font-size: 30px;
+            color: var(--light-blue);
+            margin-bottom: 15px;
+        }
+        
+        .feature-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #ffcc00;
+        }
+        
+        .language-selector {
+            display: flex;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+        
+        .lang-option {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .lang-option.active {
+            background-color: var(--accent-blue);
+        }
+        
+        .lang-option.arabic {
+            background-color: var(--arabic-bg);
+            color: #ffcc00;
+        }
+        
+        .lang-option.arabic.active {
+            background-color: #8b4513;
+        }
+        
+        .code-container {
+            background-color: var(--code-bg);
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .code-line {
+            padding: 5px 0;
+            display: flex;
+        }
+        
+        .line-number {
+            color: var(--gray-dark);
+            margin-right: 15px;
+            user-select: none;
+            min-width: 30px;
+        }
+        
+        .code {
+            flex: 1;
+        }
+        
+        .comment {
+            color: #0cc47c;
+        }
+        
+        .keyword {
+            color: #ff6b8b;
+            font-weight: bold;
+        }
+        
+        .string {
+            color: #f39c12;
+        }
+        
+        .function {
+            color: #3498db;
+        }
+        
+        .number {
+            color: #9b59b6;
+        }
+        
+        .user-form {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--light-blue);
+            font-weight: 600;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--accent-blue);
+            border-radius: 8px;
+            color: var(--white);
+            font-size: 16px;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--light-blue);
+            box-shadow: 0 0 10px rgba(74, 125, 255, 0.5);
+        }
+        
+        .country-selector {
+            position: relative;
+        }
+        
+        .country-flag {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+        }
+        
+        #countrySelect {
+            padding-left: 50px;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent-blue);
+            color: var(--white);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--light-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(74, 125, 255, 0.4);
+        }
+        
+        .btn-warning {
+            background-color: #ffcc00;
+            color: #000;
+        }
+        
+        .btn-warning:hover {
+            background-color: #ffdb4d;
+            transform: translateY(-3px);
+        }
+        
+        .btn-success {
+            background-color: var(--success-green);
+            color: var(--white);
+        }
+        
+        .btn-success:hover {
+            background-color: #27ae60;
+            transform: translateY(-3px);
+        }
+        
+        .buttons-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .ide-container {
+            background-color: var(--code-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        
+        .ide-header {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .ide-title {
+            font-weight: bold;
+            color: var(--light-blue);
+        }
+        
+        .ide-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .ide-btn {
+            padding: 8px 15px;
+            background-color: var(--accent-blue);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .ide-editor {
+            padding: 20px;
+            min-height: 300px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            line-height: 1.5;
+            background-color: #0d1b3a;
+            color: white;
+            border: none;
+            width: 100%;
+            resize: vertical;
+        }
+        
+        .ide-editor:focus {
+            outline: none;
+        }
+        
+        .ide-output {
+            padding: 20px;
+            background-color: #0a1429;
+            min-height: 150px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+        }
+        
+        .error-message {
+            color: var(--error-red);
+            background-color: rgba(231, 76, 60, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border-left: 3px solid var(--error-red);
+        }
+        
+        .success-message {
+            color: var(--success-green);
+            background-color: rgba(46, 204, 113, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border-left: 3px solid var(--success-green);
+        }
+        
+        .examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .example {
+            background-color: rgba(45, 91, 181, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .example-title {
+            color: #ffcc00;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .footer {
+            background-color: var(--primary-dark);
+            border-top: 1px solid var(--accent-blue);
+            padding: 30px 20px;
+            text-align: center;
+            color: var(--gray-dark);
+            font-size: 14px;
+            margin-top: 50px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: var(--light-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+        }
+        
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+        
+        .creator-info {
+            background-color: rgba(45, 91, 181, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .creator-name {
+            color: #ffcc00;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--light-blue);
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: var(--gray-medium);
+        }
+        
+        .correction-container {
+            background-color: rgba(46, 204, 113, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid var(--success-green);
+        }
+        
+        .correction-title {
+            color: var(--success-green);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .country-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        
+        .country-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .country-option:hover {
+            background-color: rgba(74, 125, 255, 0.2);
+        }
+        
+        .country-option.selected {
+            background-color: var(--accent-blue);
+        }
+        
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 28px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .examples {
+                grid-template-columns: 1fr;
+            }
+            
+            .buttons-container {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <span class="alg-flag">🇩🇿</span>
+            <h1 class="logo">Bechna Wail Coding 5</h1>
+            <span class="alg-flag">🇩🇿</span>
+        </div>
+        <p class="logo-subtitle">
+            Langage de programmation Algérien - Plus rapide que C++, plus simple que Python, 100% créé en Algérie par Bechna Wail Abdel Aziz
+        </p>
+    </header>
+    
+    <div class="main-container">
+        <!-- Section gauche: Présentation et formulaire -->
+        <div class="left-column">
+            <div class="card">
+                <h2 class="section-title"><i class="fas fa-star"></i> Présentation</h2>
+                <p>Bechna Wail Coding 5 est un langage de programmation révolutionnaire créé en Algérie. Il combine la puissance du C++ avec la simplicité de Python, le tout avec une touche algérienne unique.</p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-bolt"></i>
+                        <div class="feature-title">Ultra Rapide</div>
+                        <div>20% plus rapide que C++</div>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-graduation-cap"></i>
+                        <div class="feature-title">Simple à apprendre</div>
+                        <div>Plus simple que Python</div>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-flag"></i>
+                        <div class="feature-title">100% Algérien</div>
+                        <div>Créé par Bechna Wail</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="section-title"><i class="fas fa-user"></i> Identifiez-vous</h2>
+                <p>Pour utiliser Bechna Wail Coding 5, vous devez vous identifier avec votre nom et votre pays.</p>
+                
+                <div class="user-form">
+                    <div class="form-group">
+                        <label class="form-label">Votre nom complet</label>
+                        <input type="text" class="form-input" id="userName" placeholder="Ex: Bechna wail abdel aziz">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Sélectionnez votre pays</label>
+                        <div class="country-selector">
+                            <span class="country-flag" id="selectedFlag">🇩🇿</span>
+                            <select class="form-input" id="countrySelect">
+                                <option value="DZ">🇩🇿 Algérie</option>
+                                <option value="FR">🇫🇷 France</option>
+                                <option value="PS">🇵🇸 Palestine</option>
+                                <option value="MA">🇲🇦 Maroc</option>
+                                <option value="TN">🇹🇳 Tunisie</option>
+                                <option value="US">🇺🇸 États-Unis</option>
+                                <option value="CA">🇨🇦 Canada</option>
+                                <option value="GB">🇬🇧 Royaume-Uni</option>
+                                <option value="DE">🇩🇪 Allemagne</option>
+                                <option value="JP">🇯🇵 Japon</option>
+                            </select>
+                        </div>
+                        
+                        <div class="country-grid" id="countryGrid">
+                            <!-- Les drapeaux seront ajoutés par JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" id="saveUserBtn">
+                        <i class="fas fa-save"></i> Enregistrer mon profil
+                    </button>
+                    
+                    <div id="userWelcome" class="success-message" style="display: none; margin-top: 15px;"></div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="section-title"><i class="fas fa-language"></i> Deux versions</h2>
+                <p>Bechna Wail Coding 5 existe en deux versions pour s'adapter à tous les programmeurs.</p>
+                
+                <div class="language-selector">
+                    <div class="lang-option active" id="englishVersion">
+                        <i class="fas fa-globe"></i> Version Anglais
+                    </div>
+                    <div class="lang-option arabic" id="arabicVersion">
+                        <i class="fas fa-globe-asia"></i> Version Arabe
+                    </div>
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-line">
+                        <span class="line-number">1</span>
+                        <span class="code">
+                            <span class="comment"># Version Anglais</span>
+                        </span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">2</span>
+                        <span class="code">
+                            <span class="function">print</span>(<span class="string">"Hello world"</span>) <span class="keyword">repeat</span> <span class="number">1</span>
+                        </span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">3</span>
+                        <span class="code">
+                            <span class="comment"># Output: Bechna wail</span>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="code-container" style="background-color: var(--arabic-bg); display: none;" id="arabicCode">
+                    <div class="code-line">
+                        <span class="line-number">1</span>
+                        <span class="code">
+                            <span class="comment"># Version Arabe</span>
+                        </span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">2</span>
+                        <span class="code">
+                            <span class="function">طباعة</span>(<span class="string">"مرحبا يا العالم"</span>) <span class="keyword">إعادة</span> <span class="number">١</span>
+                        </span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">3</span>
+                        <span class="code">
+                            <span class="comment"># الناتج: بشنة وائل</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section droite: Éditeur et exemples -->
+        <div class="right-column">
+            <div class="card">
+                <h2 class="section-title"><i class="fas fa-code"></i> Éditeur Bechna Wail Coding 5</h2>
+                <p>Écrivez votre code ici. Le langage détecte et corrige automatiquement vos fautes.</p>
+                
+                <div class="ide-container">
+                    <div class="ide-header">
+                        <div class="ide-title">Éditeur BWC5</div>
+                        <div class="ide-buttons">
+                            <button class="ide-btn" id="runCodeBtn">
+                                <i class="fas fa-play"></i> Exécuter
+                            </button>
+                            <button class="ide-btn" id="clearCodeBtn">
+                                <i class="fas fa-trash"></i> Effacer
+                            </button>
+                        </div>
+                    </div>
+                    <textarea class="ide-editor" id="codeEditor" placeholder="Écrivez votre code Bechna Wail Coding 5 ici...">print("Bonjour l'Algérie") repeat 3</textarea>
+                    <div class="ide-output" id="codeOutput">
+                        <!-- Le résultat s'affichera ici -->
+                    </div>
+                </div>
+                
+                <div id="correctionMessage" class="correction-container" style="display: none;">
+                    <div class="correction-title">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Correction automatique appliquée</span>
+                    </div>
+                    <div id="correctionDetails"></div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="section-title"><i class="fas fa-cogs"></i> Applications possibles</h2>
+                <p>Bechna Wail Coding 5 peut être utilisé pour créer :</p>
+                
+                <div class="examples">
+                    <div class="example">
+                        <div class="example-title">Sites Web</div>
+                        <div class="code-container" style="padding: 10px; font-size: 14px;">
+                            web("MonSite") {<br>
+                            &nbsp;&nbsp;titre("Bienvenue")<br>
+                            &nbsp;&nbsp;paragraphe("Créé avec BWC5")<br>
+                            }
+                        </div>
+                    </div>
+                    <div class="example">
+                        <div class="example-title">Applications</div>
+                        <div class="code-container" style="padding: 10px; font-size: 14px;">
+                            app("MonApp") {<br>
+                            &nbsp;&nbsp;bouton("Cliquer")<br>
+                            &nbsp;&nbsp;fenêtre("Principale")<br>
+                            }
+                        </div>
+                    </div>
+                    <div class="example">
+                        <div class="example-title">Jeux Vidéo</div>
+                        <div class="code-container" style="padding: 10px; font-size: 14px;">
+                            jeu("MonJeu") {<br>
+                            &nbsp;&nbsp;personnage("Joueur")<br>
+                            &nbsp;&nbsp;niveau(1)<br>
+                            }
+                        </div>
+                    </div>
+                    <div class="example">
+                        <div class="example-title">Systèmes d'exploitation</div>
+                        <div class="code-container" style="padding: 10px; font-size: 14px;">
+                            os("BWC-OS") {<br>
+                            &nbsp;&nbsp;interface("Graphique")<br>
+                            &nbsp;&nbsp;noyau("BWC-Kernel")<br>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Apprentissage</h2>
+                <p>Apprenez Bechna Wail Coding 5 de A à Z avec notre cours complet.</p>
+                
+                <div class="buttons-container">
+                    <button class="btn btn-warning" id="learnBtn">
+                        <i class="fas fa-play-circle"></i> Apprendre BWC5 de A à Z
+                    </button>
+                    <a href="https://youtube.com/@bechnawailcoding?si=RaHt5iUq2DT4P918" target="_blank" class="btn btn-success">
+                        <i class="fab fa-youtube"></i> Chaîne YouTube
+                    </a>
+                    <button class="btn btn-primary" id="docsBtn">
+                        <i class="fas fa-book"></i> Documentation
+                    </button>
+                </div>
+                
+                <div class="creator-info">
+                    <div class="creator-name">Créateur : Bechna Wail Abdel Aziz</div>
+                    <p>Né le 10 juin 2013 en Algérie. Créateur de plus de 12 jeux, 20 applications et d'une marque d'électrique.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">12+</div>
+                <div class="stat-label">Jeux créés</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">20+</div>
+                <div class="stat-label">Applications</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">195</div>
+                <div class="stat-label">Pays supportés</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Versions linguistiques</div>
+            </div>
+        </div>
+        
+        <div class="footer-links">
+            <a href="https://youtube.com/@bechnawailcoding?si=RaHt5iUq2DT4P918" target="_blank" class="footer-link">
+                <i class="fab fa-youtube"></i> Bechna wail coding
+            </a>
+            <a href="https://youtube.com/@bechnaphonecompany?si=L5qFQQ_sptyzYR_9" target="_blank" class="footer-link">
+                <i class="fab fa-youtube"></i> Bechna phone company
+            </a>
+            <a href="https://youtube.com/@bechnawailcodingprogram?si=h7eYajxG8B9hn2O4" target="_blank" class="footer-link">
+                <i class="fab fa-youtube"></i> Bechna wail coding program
+            </a>
+            <a href="https://codepen.io/Bechna-wail-Bechna-wail-abdel-aziz/pen/ByzavEw" target="_blank" class="footer-link">
+                <i class="fab fa-codepen"></i> CodePen Bechna wail
+            </a>
+        </div>
+        
+        <div style="margin-top: 20px; font-size: 12px;">
+            Langage Bechna Wail Coding 5 - 100% créé en Algérie 🇩🇿 par Bechna Wail Abdel Aziz
+        </div>
+    </div>
+
+    <script>
+        // Éléments DOM
+        const englishVersion = document.getElementById('englishVersion');
+        const arabicVersion = document.getElementById('arabicVersion');
+        const arabicCode = document.getElementById('arabicCode');
+        const englishCode = document.querySelector('.code-container');
+        const userNameInput = document.getElementById('userName');
+        const countrySelect = document.getElementById('countrySelect');
+        const selectedFlag = document.getElementById('selectedFlag');
+        const saveUserBtn = document.getElementById('saveUserBtn');
+        const userWelcome = document.getElementById('userWelcome');
+        const codeEditor = document.getElementById('codeEditor');
+        const codeOutput = document.getElementById('codeOutput');
+        const runCodeBtn = document.getElementById('runCodeBtn');
+        const clearCodeBtn = document.getElementById('clearCodeBtn');
+        const correctionMessage = document.getElementById('correctionMessage');
+        const correctionDetails = document.getElementById('correctionDetails');
+        const learnBtn = document.getElementById('learnBtn');
+        const docsBtn = document.getElementById('docsBtn');
+        const countryGrid = document.getElementById('countryGrid');
+        
+        // Liste des pays avec drapeaux
+        const countries = [
+            {code: "DZ", name: "Algérie", flag: "🇩🇿"},
+            {code: "FR", name: "France", flag: "🇫🇷"},
+            {code: "PS", name: "Palestine", flag: "🇵🇸"},
+            {code: "MA", name: "Maroc", flag: "🇲🇦"},
+            {code: "TN", name: "Tunisie", flag: "🇹🇳"},
+            {code: "US", name: "États-Unis", flag: "🇺🇸"},
+            {code: "CA", name: "Canada", flag: "🇨🇦"},
+            {code: "GB", name: "Royaume-Uni", flag: "🇬🇧"},
+            {code: "DE", name: "Allemagne", flag: "🇩🇪"},
+            {code: "JP", name: "Japon", flag: "🇯🇵"},
+            {code: "CN", name: "Chine", flag: "🇨🇳"},
+            {code: "RU", name: "Russie", flag: "🇷🇺"},
+            {code: "IT", name: "Italie", flag: "🇮🇹"},
+            {code: "ES", name: "Espagne", flag: "🇪🇸"},
+            {code: "BR", name: "Brésil", flag: "🇧🇷"},
+            {code: "EG", name: "Égypte", flag: "🇪🇬"},
+            {code: "SA", name: "Arabie Saoudite", flag: "🇸🇦"},
+            {code: "TR", name: "Turquie", flag: "🇹🇷"},
+            {code: "IN", name: "Inde", flag: "🇮🇳"},
+            {code: "AU", name: "Australie", flag: "🇦🇺"}
+        ];
+        
+        // Variables
+        let currentUser = null;
+        let currentLanguage = 'english';
+        
+        // Initialiser la grille de pays
+        function initCountryGrid() {
+            countryGrid.innerHTML = '';
+            countries.forEach(country => {
+                const countryOption = document.createElement('div');
+                countryOption.className = 'country-option';
+                countryOption.innerHTML = `
+                    <span class="country-flag">${country.flag}</span>
+                    <span>${country.name}</span>
+                `;
+                countryOption.addEventListener('click', () => {
+                    countrySelect.value = country.code;
+                    selectedFlag.textContent = country.flag;
+                    updateSelectedCountry();
+                });
+                countryGrid.appendChild(countryOption);
+            });
+        }
+        
+        // Mettre à jour le pays sélectionné
+        function updateSelectedCountry() {
+            const selectedCode = countrySelect.value;
+            const selectedCountry = countries.find(c => c.code === selectedCode);
+            if (selectedCountry) {
+                selectedFlag.textContent = selectedCountry.flag;
+                
+                // Mettre à jour la sélection dans la grille
+                document.querySelectorAll('.country-option').forEach(option => {
+                    option.classList.remove('selected');
+                    if (option.querySelector('.country-flag').textContent === selectedCountry.flag) {
+                        option.classList.add('selected');
+                    }
+                });
+            }
+        }
+        
+        // Changer entre anglais et arabe
+        englishVersion.addEventListener('click', () => {
+            englishVersion.classList.add('active');
+            arabicVersion.classList.remove('active');
+            arabicCode.style.display = 'none';
+            englishCode.style.display = 'block';
+            currentLanguage = 'english';
+        });
+        
+        arabicVersion.addEventListener('click', () => {
+            arabicVersion.classList.add('active');
+            englishVersion.classList.remove('active');
+            englishCode.style.display = 'none';
+            arabicCode.style.display = 'block';
+            currentLanguage = 'arabic';
+        });
+        
+        // Enregistrer l'utilisateur
+        saveUserBtn.addEventListener('click', () => {
+            const userName = userNameInput.value.trim();
+            const countryCode = countrySelect.value;
+            const country = countries.find(c => c.code === countryCode);
+            
+            if (!userName) {
+                alert('Veuillez entrer votre nom');
+                return;
+            }
+            
+            currentUser = {
+                name: userName,
+                country: country.name,
+                flag: country.flag,
+                code: countryCode
+            };
+            
+            userWelcome.style.display = 'block';
+            userWelcome.innerHTML = `
+                <strong>Bienvenue ${userName} !</strong><br>
+                Vous programmez depuis ${country.flag} ${country.name}.
+                Vous pouvez maintenant utiliser Bechna Wail Coding 5.
+            `;
+            
+            // Exemple de code selon le pays
+            if (countryCode === 'DZ') {
+                codeEditor.value = `print("السلام عليكم يا الجزائر") repeat 3\n# الناتج: السلام عليكم يا الجزائر\n# السلام عليكم يا الجزائر\n# السلام عليكم يا الجزائر`;
+            } else if (countryCode === 'FR') {
+                codeEditor.value = `print("Bonjour la France") repeat 2\n# Output: Bonjour la France\n# Bonjour la France`;
+            } else {
+                codeEditor.value = `print("Hello from ${country.name}") repeat 1\n# Output: Hello from ${country.name}`;
+            }
+        });
+        
+        // Corriger automatiquement le code
+        function autoCorrectCode(code) {
+            let corrections = [];
+            let correctedCode = code;
+            
+            // Détecter et corriger les erreurs courantes
+            if (code.includes('prit(') || code.includes('pritn(')) {
+                correctedCode = correctedCode.replace(/prit(?:n)?\(/g, 'print(');
+                corrections.push('"prit" ou "pritn" corrigé en "print"');
+            }
+            
+            if (code.includes('repeet') || code.includes('repete')) {
+                correctedCode = correctedCode.replace(/repeet|repete/g, 'repeat');
+                corrections.push('"repeet" ou "repete" corrigé en "repeat"');
+            }
+            
+            if (code.includes('repet')) {
+                correctedCode = correctedCode.replace(/repet/g, 'repeat');
+                corrections.push('"repet" corrigé en "repeat"');
+            }
+            
+            // Vérifier les guillemets non fermés
+            const quoteCount = (code.match(/"/g) || []).length;
+            if (quoteCount % 2 !== 0) {
+                correctedCode += '"';
+                corrections.push('Guillemet fermant ajouté');
+            }
+            
+            return {
+                corrected: correctedCode,
+                corrections: corrections
+            };
+        }
+        
+        // Exécuter le code
+        function executeCode(code) {
+            // Corriger le code automatiquement
+            const correction = autoCorrectCode(code);
+            
+            // Afficher les corrections si nécessaire
+            if (correction.corrections.length > 0) {
+                correctionMessage.style.display = 'block';
+                correctionDetails.innerHTML = correction.corrections.map(c => `• ${c}`).join('<br>');
+                
+                // Mettre à jour l'éditeur avec le code corrigé
+                codeEditor.value = correction.corrected;
+            } else {
+                correctionMessage.style.display = 'none';
+            }
+            
+            // Simuler l'exécution du code
+            const lines = correction.corrected.split('\n');
+            let output = '';
+            let repeatCount = 1;
+            
+            lines.forEach(line => {
+                // Détecter les commandes print
+                const printMatch = line.match(/print\("([^"]+)"\)/);
+                if (printMatch) {
+                    const text = printMatch[1];
+                    
+                    // Détecter les répétitions
+                    const repeatMatch = line.match(/repeat\s+(\d+)/);
+                    if (repeatMatch) {
+                        repeatCount = parseInt(repeatMatch[1]);
+                    }
+                    
+                    for (let i = 0; i < repeatCount; i++) {
+                        output += text + '\n';
+                    }
+                }
+                
+                // Détecter les commentaires
+                if (line.includes('#') && !output.includes(line.trim())) {
+                    output += line.trim() + '\n';
+                }
+            });
+            
+            // Ajouter un message personnalisé si l'utilisateur est connecté
+            if (currentUser) {
+                output += `\n---\nCode exécuté par ${currentUser.name} depuis ${currentUser.flag} ${currentUser.country}\n`;
+                output += `Langage: Bechna Wail Coding 5 (${currentLanguage === 'english' ? 'Version Anglais' : 'Version Arabe'})\n`;
+            }
+            
+            return output || 'Aucun résultat à afficher. Essayez: print("Hello") repeat 3';
+        }
+        
+        // Événements des boutons
+        runCodeBtn.addEventListener('click', () => {
+            if (!currentUser) {
+                alert('Veuillez d\'abord enregistrer votre nom et pays');
+                return;
+            }
+            
+            const code = codeEditor.value;
+            const result = executeCode(code);
+            codeOutput.textContent = result;
+            
+            // Animation
+            codeOutput.style.opacity = '0.5';
+            setTimeout(() => {
+                codeOutput.style.opacity = '1';
+            }, 300);
+        });
+        
+        clearCodeBtn.addEventListener('click', () => {
+            codeEditor.value = '';
+            codeOutput.textContent = '';
+            correctionMessage.style.display = 'none';
+        });
+        
+        // Bouton d'apprentissage
+        learnBtn.addEventListener('click', () => {
+            alert('Ouverture du cours complet Bechna Wail Coding 5...\n\nLe cours comprend:\n1. Bases du langage\n2. Syntaxe anglaise et arabe\n3. Création de sites web\n4. Développement d\'applications\n5. Création de jeux vidéo\n6. Systèmes d\'exploitation\n7. Programmation de robots\n\nLe cours est disponible sur la chaîne YouTube Bechna Wail Coding !');
+            
+            // Ouvrir la chaîne YouTube dans un nouvel onglet
+            window.open('https://youtube.com/@bechnawailcoding?si=RaHt5iUq2DT4P918', '_blank');
+        });
+        
+        // Documentation
+        docsBtn.addEventListener('click', () => {
+            const docsWindow = window.open('', '_blank');
+            docsWindow.document.write(`
+                <html>
+                <head>
+                    <title>Documentation Bechna Wail Coding 5</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; padding: 20px; }
+                        h1 { color: #2d5bb5; }
+                        .command { background: #f0f0f0; padding: 10px; margin: 10px 0; border-left: 4px solid #2d5bb5; }
+                    </style>
+                </head>
+                <body>
+                    <h1>Documentation Bechna Wail Coding 5</h1>
+                    <h2>Commandes de base:</h2>
+                    <div class="command">
+                        <strong>print("texte")</strong> - Afficher du texte<br>
+                        Exemple: print("Hello") → Hello
+                    </div>
+                    <div class="command">
+                        <strong>repeat N</strong> - Répéter N fois<br>
+                        Exemple: print("Hi") repeat 3 → Hi Hi Hi
+                    </div>
+                    <div class="command">
+                        <strong>web("nom") { ... }</strong> - Créer un site web
+                    </div>
+                    <div class="command">
+                        <strong>app("nom") { ... }</strong> - Créer une application
+                    </div>
+                    <div class="command">
+                        <strong>jeu("nom") { ... }</strong> - Créer un jeu vidéo
+                    </div>
+                    <div class="command">
+                        <strong>os("nom") { ... }</strong> - Créer un système d'exploitation
+                    </div>
+                    <p>Version: BWC5 1.0.0 | Créé par Bechna Wail Abdel Aziz</p>
+                </body>
+                </html>
+            `);
+        });
+        
+        // Mettre à jour le pays quand la sélection change
+        countrySelect.addEventListener('change', updateSelectedCountry);
+        
+        // Initialiser
+        initCountryGrid();
+        updateSelectedCountry();
+        
+        // Exemple de code par défaut
+        codeEditor.value = `# Bechna Wail Coding 5 - Exemple
+print("Bienvenue en Algérie") repeat 2
+print("Langage créé par Bechna Wail") repeat 1
+print("Bechna wail abdl aziz est conut pour avoir cree Bechna wail company et 12 jeux et plus de 25 jeux video ")
+print("infos sur le fondateur : il est né le 10/6/2013 , ent Algerie a alger c'est un programeur chef d'entreprise ")
+# Création d'un site web
+web("Mon Site") {
+  titre("Bechna wail coding 5 version pro BWC5")
+  paragraphe("Créé avec Bechna Wail Coding 5")
+}`;
+    </script>
+</body>
+</html>
